@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIGHTFALL</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="titlebar">
+    <div class="brand"><span class="brand-mark">N</span><span>NIGHTFALL</span><small>BEE SWARM AUTOMATION</small></div>
+    <div class="window-actions"><span id="engine-status" class="status-dot"></span><span id="engine-label">ENGINE IDLE</span><button data-action="minimize" title="Minimise">—</button><button data-action="maximize" title="Maximise">□</button><button class="close" data-action="close" title="Close">×</button></div>
+  </header>
+  <aside class="sidebar" id="sidebar">
+    <div class="nav-caption">WORKSPACE</div>
+    <nav>
+      <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span>Home</span></button>
+      <button class="nav-item" data-page="dashboard"><span class="nav-icon">◫</span><span>Dashboard</span></button>
+      <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+      <button class="nav-item" data-page="gather"><span class="nav-icon">✧</span><span>Gather</span></button>
+      <button class="nav-item" data-page="stats"><span class="nav-icon">▥</span><span>Stats</span></button>
+    </nav>
+    <div class="sidebar-bottom"><span class="nav-icon">◈</span><span>v0.1 • NIGHTFALL</span></div>
+  </aside>
+  <main class="main-content">
+    <section class="page active" id="page-home">
+      <div class="page-heading"><div><p class="eyebrow">OVERVIEW</p><h1>Welcome back.</h1><p class="muted">Your automation at a glance.</p></div><div class="session-chip"><i></i><span id="session-state">Not running</span></div></div>
+      <div class="home-grid">
+        <article class="panel activity-panel">
+          <div class="panel-heading"><div><h2>Session activity</h2><p class="muted">Where your time is being spent</p></div><span class="live-tag">LIVE VIEW</span></div>
+          <div class="activity-layout">
+            <div class="donut-wrap">
+              <div class="outer-donut"><div class="donut-segments"></div><div class="inner-donut"><div class="honey-value" id="honey-total">—</div><small>HONEY MADE</small><div class="honey-est" id="honey-est">Estimate unavailable</div></div></div>
+            </div>
+            <div class="activity-legend">
+              <div class="legend-row" data-activity="gathering"><i class="dot purple"></i><span>Gathering</span><b id="gathering-pct">—</b></div>
+              <div class="legend-row" data-activity="converting"><i class="dot pink"></i><span>Converting</span><b id="converting-pct">—</b></div>
+              <div class="legend-row" data-activity="travelling"><i class="dot blue"></i><span>Travelling</span><b id="travelling-pct">—</b></div>
+              <div class="hover-detail" id="activity-detail">Hover over a ring segment for activity details.</div>
+            </div>
+          </div>
+        </article>
+        <article class="panel buffs-panel">
+          <div class="panel-heading"><div><h2>Active buffs</h2><p class="muted">Long-duration effects only</p></div><span class="buff-count" id="buff-count">0</span></div>
+          <div class="buff-list" id="buff-list">
+            <div class="empty-state"><span>✧</span><b>No buff data yet</b><small>Buff detection will populate this panel.</small></div>
+          </div>
+          <div class="buff-total"><span>Combined remaining time</span><b id="buff-total">—</b></div>
+        </article>
+      </div>
+      <article class="panel chart-panel">
+        <div class="panel-heading"><div><h2>Buff duration history</h2><p class="muted">Stack level and duration over the session</p></div><span class="muted tiny">STACKS 1–10</span></div>
+        <div class="chart-key" id="buff-key"><span><i class="dot purple"></i> Mondo blessing</span><span><i class="dot pink"></i> Nectar</span><span><i class="dot blue"></i> Balloon blessing</span><span><i class="dot gold"></i> Other buffs</span></div>
+        <canvas id="buff-chart" height="190"></canvas><div class="chart-empty" id="buff-chart-empty">Waiting for live buff readings.</div>
+      </article>
+    </section>
+
+    <section class="page" id="page-dashboard">
+      <div class="page-heading"><div><p class="eyebrow">MONITORING</p><h1>Dashboard</h1><p class="muted">Live session performance and diagnostics.</p></div></div>
+      <div class="metric-grid">
+        <article class="metric panel"><small>HONEY EARNED</small><strong id="metric-honey">—</strong><span>Session total</span></article>
+        <article class="metric panel"><small>HONEY / HOUR</small><strong id="metric-hph">—</strong><span>Live rate</span></article>
+        <article class="metric panel"><small>BACKPACK</small><strong id="metric-pollen">—</strong><span>Capacity used</span></article>
+        <article class="metric panel"><small>SESSION TIME</small><strong id="metric-time">00:00</strong><span>Current run</span></article>
+      </div>
+      <article class="panel"><div class="panel-heading"><div><h2>Engine activity</h2><p class="muted">Recent actions reported by the AHK engine</p></div></div><div id="event-feed" class="event-feed"><div class="feed-row"><i class="dot purple"></i><span>GUI initialised</span><time>NOW</time></div></div></article>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="page-heading"><div><p class="eyebrow">CONFIGURATION</p><h1>Settings</h1><p class="muted">Player profile and movement calibration.</p></div><button class="primary-btn" id="save-settings">Save settings</button></div>
+      <div class="settings-grid">
+        <article class="panel settings-card"><div class="panel-heading"><div><h2>Player profile</h2><p class="muted">Your in-game setup</p></div></div>
+          <label class="field-label" for="bee-count">Number of bees</label><div class="input-line"><input id="bee-count" type="number" min="1" max="50" value="25"><span class="input-suffix">BEES</span></div>
+          <label class="field-label" for="hive-slot">Hive slot</label><select id="hive-slot"><option value="1">1 — Next to the cannon</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6 — Near the Noob Shop</option></select>
+        </article>
+        <article class="panel settings-card"><div class="panel-heading"><div><h2>Movement speed</h2><p class="muted">Base speed used by the movement engine</p></div><span class="value-pill" id="speed-display">32.20</span></div>
+          <div class="range-header"><label class="field-label" for="speed-slider">PLAYER MOVEMENT SPEED</label><b id="speed-value">32.20</b></div>
+          <input id="speed-slider" class="purple-range" type="range" min="0" max="50" step=".01" value="32.20">
+          <label class="field-label" for="speed-number">Exact speed value</label><input id="speed-number" type="number" min="0" max="50" step=".01" value="32.20">
+          <p class="help-text">Base movement speed with no Haste active. Live Haste and other multipliers are handled separately by detection.</p>
+        </article>
+        <article class="panel settings-card"><div class="panel-heading"><div><h2>Screen capture</h2><p class="muted">How often NIGHTFALL captures a frame</p></div></div>
+          <label class="field-label" for="capture-interval">Capture interval</label><div class="input-line"><input id="capture-interval" type="number" min="1" max="60" step="1" value="2"><span class="input-suffix">SECONDS</span></div>
+          <p class="help-text">Lower intervals capture more often and use more processing. This setting is saved for the scanner.</p>
+        </article>
+      </div>
+      <article class="panel calibration-panel"><div><h2>Roblox camera calibration</h2><p class="muted">A sensitivity sweep must be measured against a known on-screen reference before it can be trusted.</p><div class="calibration-status" id="calibration-status">Not calibrated this session</div></div><button class="secondary-btn" id="calibrate-camera">Run calibration check</button></article>
+    </section>
+
+    <section class="page" id="page-gather">
+      <div class="page-heading"><div><p class="eyebrow">GATHER CONFIGURATION</p><h1>Gather</h1><p class="muted">Choose a field and tune your gather limits.</p></div><div class="field-picker-wrap"><button class="primary-btn" id="field-picker">Choose field <span>⌄</span></button><div class="field-menu" id="field-menu"><div class="menu-title">AVAILABLE FIELDS</div><div id="field-options"><p class="muted">Scanning paths folder…</p></div></div></div></div>
+      <div class="gather-selected panel"><div><small>SELECTED FIELD</small><h2 id="selected-field">No field selected</h2><p class="muted" id="selected-route">Choose a field route to configure gathering.</p></div><span class="field-symbol">✧</span></div>
+      <div class="gather-meters">
+        <article class="panel meter-card"><div class="panel-heading"><div><h2>Capacity limit</h2><p class="muted">Stop gathering at this backpack percentage</p></div></div><button class="meter-button" data-edit-meter="capacity"><svg viewBox="0 0 180 180" class="meter-svg"><circle class="meter-track" cx="90" cy="90" r="72"/><circle class="meter-progress" id="capacity-ring" cx="90" cy="90" r="72"/></svg><span class="meter-center"><b id="capacity-value">100%</b><small>CAPACITY</small></span></button><div class="meter-foot"><span>Gather until limit</span><b id="capacity-foot">100%</b></div></article>
+        <article class="panel meter-card"><div class="panel-heading"><div><h2>Gather duration</h2><p class="muted">Maximum time spent in the field</p></div></div><button class="meter-button" data-edit-meter="minutes"><svg viewBox="0 0 180 180" class="meter-svg"><circle class="meter-track" cx="90" cy="90" r="72"/><circle class="meter-progress" id="minutes-ring" cx="90" cy="90" r="72"/></svg><span class="meter-center"><b id="minutes-value">30m</b><small>DURATION</small></span></button><div class="meter-foot"><span>Maximum field time</span><b id="minutes-foot">30 / 120 min</b></div></article>
+      </div>
+      <div class="panel pattern-panel"><div class="panel-heading"><div><h2>Gather pattern</h2><p class="muted">Configure the pattern, field region and camera angle.</p></div><button class="secondary-btn" id="toggle-pattern">＋ Configure pattern</button></div>
+        <div class="pattern-summary" id="pattern-summary">No pattern configured yet.</div>
+        <div class="pattern-editor hidden" id="pattern-editor">
+          <div class="pattern-fields"><label class="field-label">PATTERN FILE (.AHK)<select id="pattern-file"><option value="">No pattern files found</option></select></label><label class="field-label">FIELD REGION<select id="field-region"><option>Bottom Left</option><option>Left</option><option>Bottom Right</option><option>Center</option><option>Top Left</option><option>Top</option><option>Top Right</option></select></label><label class="field-label">CAMERA DIRECTION<select id="camera-direction"><option>Default</option><option>North</option><option>East</option><option>South</option><option>West</option></select></label></div>
+          <button class="primary-btn" id="save-pattern">Apply pattern</button>
+        </div>
+      </div>
+      <div class="gather-footer"><span class="muted tiny">Gather settings are stored in your local NIGHTFALL profile.</span><button class="primary-btn" id="save-gather">Save gather setup</button></div>
+    </section>
+
+    <section class="page" id="page-stats">
+      <div class="page-heading"><div><p class="eyebrow">SESSION INSIGHTS</p><h1>Stats</h1><p class="muted">Detailed results from completed sessions.</p></div></div>
+      <div class="metric-grid"><article class="metric panel"><small>GATHER TIME</small><strong id="stat-gather">—</strong><span>Total</span></article><article class="metric panel"><small>CONVERT TIME</small><strong id="stat-convert">—</strong><span>Total</span></article><article class="metric panel"><small>TRAVEL TIME</small><strong id="stat-travel">—</strong><span>Total</span></article><article class="metric panel"><small>LOOPS</small><strong id="stat-loops">0</strong><span>Completed</span></article></div>
+      <article class="panel"><div class="panel-heading"><div><h2>Session report</h2><p class="muted">Statistics will appear when the engine reports real measurements.</p></div></div><div class="empty-state"><span>▥</span><b>No session data yet</b><small>Start a session after the movement and scanner systems are configured.</small></div></article>
+    </section>
+  </main>
+  <footer class="bottom-bar"><div class="bottom-status"><i id="bottom-dot"></i><span id="bottom-status-text">Ready</span></div><div class="hotkeys"><span>F1 <b>START</b></span><span>F2 <b>STOP</b></span><span>F3 <b>CLOSE</b></span><span>F4 <b>RELOAD</b></span></div><div class="bottom-version">NIGHTFALL • AHK V2</div></footer>
+</div>
+<div class="modal-backdrop hidden" id="meter-modal"><div class="modal"><button class="modal-close" id="close-meter">×</button><p class="eyebrow">GATHER LIMIT</p><h2 id="meter-modal-title">Capacity limit</h2><p class="muted" id="meter-modal-help">Choose a percentage from 1 to 100.</p><div class="modal-number"><input id="meter-input" type="number" min="1" max="100" value="100"><span id="meter-unit">%</span></div><input id="meter-slider" type="range" min="1" max="100" value="100" class="purple-range"><button class="primary-btn full" id="apply-meter">Apply limit</button></div></div>
+<script src="app.js"></script>
+</body></html>
