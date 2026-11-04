@@ -14,3 +14,5 @@
 @media(max-width:600px){.app-shell{grid-template-columns:54px minmax(0,1fr)}.sidebar{width:54px;padding-left:6px;padding-right:6px}.sidebar:hover{width:170px}.main-content{padding:18px 12px 24px}.brand small{display:none}.page-heading h1{font-size:23px}.settings-grid,.gather-meters{grid-template-columns:1fr}.settings-card:nth-child(3){grid-column:auto}.pattern-fields{grid-template-columns:1fr}.calibration-panel{align-items:flex-start;flex-direction:column}.hotkeys{gap:8px}.hotkeys span{font-size:8px}.bottom-version{display:none}.activity-layout{gap:10px}.donut-wrap{width:48%}.honey-value{font-size:19px}}
 
 .gather-footer-actions{display:flex;align-items:center;gap:10px}.field-mini-btn{width:34px;height:34px;border-radius:9px;border:1px solid #76509a;background:#21132f;color:#d8b9ff;font-size:19px;box-shadow:0 0 14px #9b5cff22}.field-mini-btn:hover{background:#43245d;border-color:#b07bfa}
+
+.gather-footer .field-menu{top:auto;bottom:calc(100% + 8px)}
