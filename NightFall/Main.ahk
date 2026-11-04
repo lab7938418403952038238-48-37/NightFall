@@ -26,7 +26,7 @@ global GatherConfig := {
     Minutes: Number(IniRead(ConfigPath, "Gather", "Minutes", "30"))
 }
 
-WebViewSettings := {DllPath: A_ScriptDir "\\core\\" (A_PtrSize = 8 ? "64bit" : "32bit") "\\WebView2Loader.dll"}
+WebViewSettings := {DllPath: A_ScriptDir "\core\" (A_PtrSize = 8 ? "64bit" : "32bit") "\WebView2Loader.dll"}
 NightfallWindow := WebViewGui("+Resize -Caption", "NIGHTFALL",, WebViewSettings)
 NightfallWindow.OnEvent("Close", (*) => ExitApp())
 NightfallWindow.Navigate("GUI/index.html")
