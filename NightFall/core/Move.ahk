@@ -19,7 +19,7 @@ walk(tiles, dir1, dir2?) {
 
 DetectMovespeed(getMovespeed?) {
     s := QPC()
-    global HastyGuards, BaseMovespeed, GiftedHasty, offsetY
+    global HastyGuards, BaseMovespeed, GiftedHasty, offsetY, bitmaps
     GetRobloxClientPos()
 
     static chdc := 0, hbm := 0, obm := 0, capW := 0, capH := 30
