@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NIGHTFALL</title>
+<title>VESPER</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app-shell">
   <header class="titlebar">
-    <div class="brand"><span class="brand-mark">N</span><span>NIGHTFALL</span><small>BEE SWARM AUTOMATION</small></div>
+    <div class="brand"><span class="brand-mark">N</span><span>VESPER</span><small>BEE SWARM AUTOMATION</small></div>
     <div class="window-actions"><span id="engine-status" class="status-dot"></span><span id="engine-label">ENGINE IDLE</span><button data-action="minimize" title="Minimise">—</button><button data-action="maximize" title="Maximise">□</button><button class="close" data-action="close" title="Close">×</button></div>
   </header>
   <aside class="sidebar" id="sidebar">
@@ -21,7 +21,7 @@
       <button class="nav-item" data-page="gather"><span class="nav-icon">✧</span><span>Gather</span></button>
       <button class="nav-item" data-page="stats"><span class="nav-icon">▥</span><span>Stats</span></button>
     </nav>
-    <div class="sidebar-bottom"><span class="nav-icon">◈</span><span>v0.1 • NIGHTFALL</span></div>
+    <div class="sidebar-bottom"><span class="nav-icon">◈</span><span>v0.1 • VESPER</span></div>
   </aside>
   <main class="main-content">
     <section class="page active" id="page-home">
@@ -80,7 +80,7 @@
           <label class="field-label" for="speed-number">Exact speed value</label><input id="speed-number" type="number" min="0" max="50" step=".01" value="32.20">
           <p class="help-text">Base movement speed with no Haste active. Live Haste and other multipliers are handled separately by detection.</p>
         </article>
-        <article class="panel settings-card"><div class="panel-heading"><div><h2>Screen capture</h2><p class="muted">How often NIGHTFALL captures a frame</p></div></div>
+        <article class="panel settings-card"><div class="panel-heading"><div><h2>Screen capture</h2><p class="muted">How often VESPER captures a frame</p></div></div>
           <label class="field-label" for="capture-interval">Capture interval</label><div class="input-line"><input id="capture-interval" type="number" min="1" max="60" step="1" value="2"><span class="input-suffix">SECONDS</span></div>
           <p class="help-text">Lower intervals capture more often and use more processing. This setting is saved for the scanner.</p>
         </article>
@@ -102,7 +102,7 @@
           <button class="primary-btn" id="save-pattern">Apply pattern</button>
         </div>
       </div>
-      <div class="gather-footer"><span class="muted tiny">Gather settings are stored in your local NIGHTFALL profile.</span><div class="gather-footer-actions"><div class="field-picker-wrap"><button class="field-mini-btn" id="field-picker" title="Choose field">＋</button><div class="field-menu" id="field-menu"><div class="menu-title">AVAILABLE FIELDS</div><div id="field-options"><p class="muted">Scanning paths folder…</p></div></div></div><button class="primary-btn" id="save-gather">Save gather setup</button></div></div>
+      <div class="gather-footer"><span class="muted tiny">Gather settings are stored in your local VESPER profile.</span><div class="gather-footer-actions"><div class="field-picker-wrap"><button class="field-mini-btn" id="field-picker" title="Choose field">＋</button><div class="field-menu" id="field-menu"><div class="menu-title">AVAILABLE FIELDS</div><div id="field-options"><p class="muted">Scanning paths folder…</p></div></div></div><button class="primary-btn" id="save-gather">Save gather setup</button></div></div>
     </section>
 
     <section class="page" id="page-stats">
@@ -111,7 +111,7 @@
       <article class="panel"><div class="panel-heading"><div><h2>Session report</h2><p class="muted">Statistics will appear when the engine reports real measurements.</p></div></div><div class="empty-state"><span>▥</span><b>No session data yet</b><small>Start a session after the movement and scanner systems are configured.</small></div></article>
     </section>
   </main>
-  <footer class="bottom-bar"><div class="bottom-status"><i id="bottom-dot"></i><span id="bottom-status-text">Ready</span></div><div class="hotkeys"><span>F1 <b>START</b></span><span>F2 <b>STOP</b></span><span>F3 <b>CLOSE</b></span><span>F4 <b>RELOAD</b></span></div><div class="bottom-version">NIGHTFALL • AHK V2</div></footer>
+  <footer class="bottom-bar"><div class="bottom-status"><i id="bottom-dot"></i><span id="bottom-status-text">Ready</span></div><div class="hotkeys"><span>F1 <b>START</b></span><span>F2 <b>STOP</b></span><span>F3 <b>CLOSE</b></span><span>F4 <b>RELOAD</b></span></div><div class="bottom-version">VESPER • AHK V2</div></footer>
 </div>
 <div class="modal-backdrop hidden" id="meter-modal"><div class="modal"><button class="modal-close" id="close-meter">×</button><p class="eyebrow">GATHER LIMIT</p><h2 id="meter-modal-title">Capacity limit</h2><p class="muted" id="meter-modal-help">Choose a percentage from 1 to 100.</p><div class="modal-number"><input id="meter-input" type="number" min="1" max="100" value="100"><span id="meter-unit">%</span></div><input id="meter-slider" type="range" min="1" max="100" value="100" class="purple-range"><button class="primary-btn full" id="apply-meter">Apply limit</button></div></div>
 <script src="app.js"></script>
