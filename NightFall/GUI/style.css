@@ -16,3 +16,5 @@
 .gather-footer-actions{display:flex;align-items:center;gap:10px}.field-mini-btn{width:34px;height:34px;border-radius:9px;border:1px solid #76509a;background:#21132f;color:#d8b9ff;font-size:19px;box-shadow:0 0 14px #9b5cff22}.field-mini-btn:hover{background:#43245d;border-color:#b07bfa}
 
 .gather-footer .field-menu{top:auto;bottom:calc(100% + 8px)}
+
+.home-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.home-actions .session-chip{margin-left:5px}
