@@ -39,7 +39,22 @@ document.querySelector(".outer-donut")?.addEventListener("mousemove",e=>{const r
 $("outer-donut")?.addEventListener("mouseleave",()=>{$("activity-detail").textContent="Hover over a ring segment for activity details.";});
 function drawBuffChart(){const c=$("buff-chart"),ctx=c.getContext("2d"),dpr=window.devicePixelRatio||1,w=c.clientWidth,h=170;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);ctx.strokeStyle="#392a49";ctx.lineWidth=1;ctx.font="9px Segoe UI";ctx.fillStyle="#8e7d9f";for(let i=0;i<=10;i+=2){const y=12+(h-32)*(1-i/10);ctx.beginPath();ctx.moveTo(34,y);ctx.lineTo(w-8,y);ctx.stroke();ctx.fillText(String(i),9,y+3);}for(let i=0;i<=6;i++){const x=34+(w-48)*i/6;ctx.fillText(String(i*10)+"m",x-8,h-5);} }
 window.addEventListener("resize",drawBuffChart);
-function applyHostMessage(data){if(!data)return;if(data.type==="status"){setEngine(data.status||"idle",data.detail||"");if(data.detail)toast(data.detail);}if(data.type==="calibration")$("calibration-status").textContent=data.detail;if(data.type==="metrics"){if(data.honey!=null){$("honey-total").textContent=data.honey;$("metric-honey").textContent=data.honey;}if(data.hph!=null)$("metric-hph").textContent=data.hph;if(data.pollen!=null)$("metric-pollen").textContent=data.pollen+"%";if(data.activity){for(const k of ["gathering","converting","travelling"])if(data.activity[k]!=null)$(k+"-pct").textContent=data.activity[k]+"%";}}}
+function applyHostMessage(data){
+ if(!data)return;
+ if(data.type==="status"){setEngine(data.status||"idle",data.detail||"");if(data.detail)toast(data.detail);}
+ if(data.type==="calibration")$("calibration-status").textContent=data.detail;
+ if(data.type==="metrics"){
+  if(data.honey!=null){$("honey-total").textContent=data.honey;$("metric-honey").textContent=data.honey;}
+  if(data.hph!=null)$("metric-hph").textContent=data.hph;
+  if(data.pollen!=null)$("metric-pollen").textContent=data.pollen+"%";
+  if(data.honeyEstimate!=null)$("honey-est").textContent="Target estimate: "+data.honeyEstimate;
+  if(data.activity){
+   let total=0;
+   for(const k of ["gathering","converting","travelling"]){const v=Number(data.activity[k]||0);state.activity[k]=v;total+=v;$(k+"-pct").textContent=v+"%";}
+   if(total>0){const g=state.activity.gathering/total*100,c=(state.activity.gathering+state.activity.converting)/total*100;document.querySelector(".donut-segments").style.background="conic-gradient(#a45bff 0 "+g+"%,#ec67bf "+g+"% "+c+"%,#548aff "+c+"% 100%)";}
+  }
+ }
+}
 window.nightfallReceive=applyHostMessage;
 if(window.chrome?.webview)window.chrome.webview.addEventListener("message",e=>applyHostMessage(e.data));
 document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>call(({start:"NightfallStart",stop:"NightfallStop",minimize:"NightfallMinimize",maximize:"NightfallMaximize",close:"NightfallClose"})[b.dataset.action])));
