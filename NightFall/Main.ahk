@@ -5,19 +5,22 @@
 #Include core\Gdip_ImageSearch.ahk
 #Include core\QPC.ahk
 #Include core\Roblox.ahk
+#Include core\ScreenCapture.ahk
+#Include core\Movement.ahk
+#Include core\Offset.ahk
 #Include core\Move.ahk
 
-global NightfallWindow := 0
-global ConfigPath := A_ScriptDir "\NightFall.ini"
-global BaseMovespeed := Number(IniRead(ConfigPath, "Player", "MoveSpeed", "32.20"))
-global HastyGuards := false
-global GiftedHasty := false
-global offsetY := 0
-global BeesCount := Number(IniRead(ConfigPath, "Player", "Bees", "25"))
-global HiveSlot := Number(IniRead(ConfigPath, "Player", "HiveSlot", "1"))
-global CaptureInterval := Number(IniRead(ConfigPath, "Scanner", "CaptureInterval", "2"))
-global MacroState := "idle"
-global GatherConfig := {
+NightfallWindow := 0
+ConfigPath := A_ScriptDir "\NightFall.ini"
+BaseMovespeed := Number(IniRead(ConfigPath, "Player", "MoveSpeed", "32.20"))
+HastyGuards := false
+GiftedHasty := false
+offsetY := 0
+BeesCount := Number(IniRead(ConfigPath, "Player", "Bees", "25"))
+HiveSlot := Number(IniRead(ConfigPath, "Player", "HiveSlot", "1"))
+CaptureInterval := Number(IniRead(ConfigPath, "Scanner", "CaptureInterval", "2"))
+MacroState := "idle"
+GatherConfig := {
     Field: IniRead(ConfigPath, "Gather", "Field", ""),
     Pattern: IniRead(ConfigPath, "Gather", "Pattern", ""),
     Region: IniRead(ConfigPath, "Gather", "Region", "Bottom Left"),
@@ -25,6 +28,11 @@ global GatherConfig := {
     Capacity: Number(IniRead(ConfigPath, "Gather", "Capacity", "100")),
     Minutes: Number(IniRead(ConfigPath, "Gather", "Minutes", "30"))
 }
+
+GdipToken := Gdip_Startup()
+bitmaps := Map()
+LoadMovementBitmaps()
+LoadOffsetBitmaps()
 
 WebViewSettings := {DllPath: A_ScriptDir "\core\" (A_PtrSize = 8 ? "64bit" : "32bit") "\WebView2Loader.dll"}
 NightfallWindow := WebViewGui("+Resize -Caption", "NIGHTFALL",, WebViewSettings)
@@ -161,4 +169,8 @@ NightfallNotify(type, status, detail) {
     safeDetail := StrReplace(StrReplace(detail, "\", "\\"), "'", "\'")
     try NightfallWindow.ExecuteScriptAsync("window.nightfallReceive({type:'" type "',status:'" safeStatus "',detail:'" safeDetail "'})")
 }
-NightfallCleanup(*) => Send("{w up}{a up}{s up}{d up}{Space up}{RButton up}")
+NightfallCleanup(*) {
+    global GdipToken
+    Send "{w up}{a up}{s up}{d up}{Space up}{RButton up}"
+    try Gdip_Shutdown(GdipToken)
+}
