@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const state={page:"home",capacity:100,minutes:30,field:"",pattern:"",region:"Bottom Left",camera:"Default",meter:"capacity"};
+const state={page:"home",capacity:100,minutes:30,field:"",pattern:"",region:"Bottom Left",camera:"Default",meter:"capacity",activity:{gathering:0,converting:0,travelling:0}};
 function bridge(name,...args){try{const api=window.chrome?.webview?.hostObjects?.sync;if(!api||!api[name]){console.warn("AHK bridge unavailable:",name);return null;}return api[name](...args);}catch(e){console.error("NIGHTFALL bridge error",name,e);return null;}}
 function call(name,...args){return bridge(name,...args);}
 function setPage(page){state.page=page;document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.page===page));$("field-menu").classList.remove("open");}
