@@ -10,7 +10,7 @@
 #Include core\Move.ahk
 
 NightfallWindow := 0
-ConfigPath := A_ScriptDir "\NightFall.ini"
+ConfigPath := A_ScriptDir "\Vesper.ini"
 BaseMovespeed := Number(IniRead(ConfigPath, "Player", "MoveSpeed", "32.20"))
 HastyGuards := false
 GiftedHasty := false
@@ -34,7 +34,7 @@ LoadMovementBitmaps()
 LoadOffsetBitmaps()
 
 WebViewSettings := {DllPath: A_ScriptDir "\core\" (A_PtrSize = 8 ? "64bit" : "32bit") "\WebView2Loader.dll"}
-NightfallWindow := WebViewGui("+Resize -Caption", "NIGHTFALL",, WebViewSettings)
+NightfallWindow := WebViewGui("+Resize -Caption", "VESPER",, WebViewSettings)
 NightfallWindow.OnEvent("Close", (*) => ExitApp())
 NightfallWindow.Navigate("GUI/index.html")
 NightfallWindow.AddCallbackToScript("NightfallStart", NightfallStart)
@@ -68,7 +68,7 @@ NightfallStart(*) {
         NightfallNotify("status", "idle", "Roblox was not found. Open Roblox before starting.")
         return
     }
-    BaseMovespeed := Number(IniRead(A_ScriptDir "\NightFall.ini", "Player", "MoveSpeed", "32.20"))
+    BaseMovespeed := Number(IniRead(A_ScriptDir "\Vesper.ini", "Player", "MoveSpeed", "32.20"))
     calibration := NightfallCameraCalibrationCheck()
     MacroState := "ready"
     NightfallNotify("status", "idle", "Roblox detected. " calibration)
@@ -136,8 +136,7 @@ NightfallGetFields(*) {
     }
     result := ""
     for key, name in fields {
-        if FileExist(pathsDir "\fth-" name ".ahk")
-            result .= name Chr(10)
+        result .= name Chr(10)
     }
     return RTrim(result, Chr(10))
 }
