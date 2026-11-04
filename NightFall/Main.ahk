@@ -5,6 +5,7 @@
 #Include core\Gdip_ImageSearch.ahk
 #Include core\QPC.ahk
 #Include core\Roblox.ahk
+#Include core\ScreenCapture.ahk
 #Include core\Movement.ahk
 #Include core\Offset.ahk
 #Include core\Move.ahk
