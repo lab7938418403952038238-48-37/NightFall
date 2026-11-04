@@ -1,36 +1,36 @@
-# NIGHTFALL
+# VESPER
 
-NIGHTFALL is a custom AutoHotkey v2 automation project with a WebView2 HTML/CSS/JavaScript interface.
+VESPER is a Bee Swarm Simulator automation project built with AutoHotkey v2 and a custom WebView2 interface.
+
+## Project status
+
+This branch is the VESPER rebrand and integration foundation. The current UI and AHK host are retained and renamed. Start currently performs a Roblox/preflight check only; it does **not** yet run a complete gather/conversion loop. Scanner-driven farming, validated movement routes, pattern execution, and camera calibration still need integration and in-game testing.
 
 ## Run
 
 1. Install AutoHotkey v2.
-2. Make sure the Microsoft Edge WebView2 Runtime is installed.
-3. Keep the repository folders together; do not move `Main.ahk` away from `GUI`, `core`, or `bitmaps`.
+2. Install the Microsoft Edge WebView2 Runtime.
+3. Keep the `NightFall` project directory and its subfolders together.
 4. Run `NightFall/Main.ahk`.
-
-The app uses the matching `core/32bit/WebView2Loader.dll` or `core/64bit/WebView2Loader.dll` based on the AutoHotkey process architecture.
 
 ## Interface
 
-- `GUI/index.html`: page layout
-- `GUI/style.css`: responsive black/purple theme
-- `GUI/app.js`: UI interactions and WebView bridge
-- `Main.ahk`: AutoHotkey host, hotkeys, INI settings and WebView callbacks
+- `NightFall/GUI/index.html`: VESPER interface markup
+- `NightFall/GUI/style.css`: responsive black/purple theme
+- `NightFall/GUI/app.js`: UI interactions and WebView bridge
+- `NightFall/Main.ahk`: AutoHotkey host, settings, hotkeys and WebView callbacks
 
-## Existing engine files
+## Existing engine components
 
-The existing movement code is in `core/Move.ahk`. Its configured base speed is updated by the Settings slider and saved to `NightFall.ini`. Movement image templates are initialised by `core/Movement.ahk`, and screen offset templates by `core/Offset.ahk`. GDI+ is loaded from `bitmaps/Gdip_All.ahk`.
+Movement and image-search components are in `NightFall/core`; GDI+ is in `NightFall/bitmaps`. The field discovery routine reads `gtf-*.ahk` files from `NightFall/paths`. Paths must be validated against the user's game resolution, camera sensitivity, movement speed and hive position before unattended use.
 
-## Current implementation status
-
-The GUI, navigation, settings controls, field/pattern discovery, gather configuration, local INI persistence, WebView callbacks, window controls and F1–F4 hotkeys are connected.
-
-The full farming loop is not enabled yet. The current repository still needs a completed scanner/detection pipeline, validated field route and pattern execution, and a real camera-sensitivity measurement routine. The camera calibration button currently performs a preflight check and explicitly reports that sensitivity measurement is pending; it does not invent a sensitivity value. Honey, buff and session charts remain empty until real measurements are sent by the engine.
-
-### Hotkeys
+## Keybinds
 
 - F1: Start/preflight
 - F2: Stop and release held inputs
-- F3: Close NIGHTFALL
-- F4: Reload NIGHTFALL
+- F3: Close VESPER
+- F4: Reload VESPER
+
+## Upstream attribution and licence
+
+This project incorporates and adapts code from [Kairos](https://github.com/KairosMacro/Kairos), Copyright the Kairos contributors, distributed under the GNU General Public License v3.0. See the repository's `LICENSE` file and `THIRD_PARTY_NOTICES.md`. Kairos also credits Natro Macro and the listed third-party library authors in its upstream README; consult the upstream project for their notices and licensing details.
