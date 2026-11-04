@@ -5,15 +5,22 @@
 class Roblox {
 	static state := { hwnd: 0, x: 0, y: 0, w: 0, h:0 , offsetY: 0, ok: false, ts: 0 }
 	static interval := 50
-	
+	static trackerCallback := 0
+
 	static StartTracker(intervalMs := 50) {
 		this.interval := intervalMs
 		this.Update()
-		Scheduler.Add("Roblox.Update", ObjBindMethod(this, "Update"), intervalMs)
+		if IsObject(this.trackerCallback)
+			SetTimer(this.trackerCallback, 0)
+		this.trackerCallback := ObjBindMethod(this, "Update")
+		SetTimer(this.trackerCallback, intervalMs)
 	}
 
 	static StopTracker() {
-		Scheduler.RemoveAt("Roblox.Update")
+		if IsObject(this.trackerCallback) {
+			SetTimer(this.trackerCallback, 0)
+			this.trackerCallback := 0
+		}
 	}
 
 	static Get() {
@@ -110,7 +117,7 @@ class Roblox {
 			this.Activate()
 			PrevKeyDelay := A_KeyDelay
 			SetKeyDelay 250 + PrevKeyDelay
-			send "{" SC_Esc "}{" SC_L "}{" SC_Enter "}"
+			Send "{Esc}{l}{Enter}"
 			SetKeyDelay PrevKeyDelay
 			try WinClose "Roblox"
 			sleep 500
@@ -236,7 +243,7 @@ CloseRoblox() {
 		ActivateRoblox()
 		PrevKeyDelay := A_KeyDelay
 		SetKeyDelay 250 + PrevKeyDelay
-		send "{" SC_Esc "}{" SC_L "}{" SC_Enter "}"
+		Send "{Esc}{l}{Enter}"
 		SetKeyDelay PrevKeyDelay
 		try WinClose "Roblox"
 		sleep 500
